@@ -34,7 +34,7 @@ const Student = sequelize.define('student', {
     },
 
 })
-Student.hasMany(StudentAnswer,{as: "StudentAnswers"})
+Student.hasMany(StudentAnswer,{foreignKey: 'student_answer_id', sourceKey: 'student_id'})
 
 module.exports =  Student
 

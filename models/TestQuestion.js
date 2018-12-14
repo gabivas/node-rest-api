@@ -11,7 +11,7 @@ const TestQuestion= sequelize.define('test_question', {
         primaryKey: true,
         autoIncrement: true
     },
-    teacher_id: {
+    question_id: {
         type: Sequelize.INTEGER,
         unique: 'test_question'
     },
@@ -22,7 +22,7 @@ const TestQuestion= sequelize.define('test_question', {
     }
 })
 
-Test.belongsToMany(Question, { through: TestQuestion });
-Question.belongsToMany(Test, { through: TestQuestion });
+Test.belongsToMany(Question, {through: TestQuestion, foreignKey: 'test_id'});
+Question.belongsToMany(Test, {through: TestQuestion, foreignKey: 'question_id'});
 
 module.exports = TestQuestion

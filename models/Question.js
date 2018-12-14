@@ -26,7 +26,6 @@ const Question = sequelize.define('question', {
     difficulty: {
         type: Sequelize.STRING
     }
-
 })
 
 module.exports = Question

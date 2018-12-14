@@ -14,8 +14,8 @@ const Examination = sequelize.define('examination', {
     finishedAt: {
         type: Sequelize.DATE
     }
-
 })
-Examination.hasMany(StudentAnswer,{as: "StudentAnswers"})
+
+Examination.hasMany(StudentAnswer, {foreignKey: 'student_answer_id', sourceKey: 'examination_id'})
 module.exports = Examination
 

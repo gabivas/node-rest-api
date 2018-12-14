@@ -1,8 +1,5 @@
 const Sequelize = require('sequelize')
-
-
 const sequelize =  require('../config/db-connection').sequelize
-const Test = require('./Test')
 
 const Teacher = sequelize.define('teacher', {
     teacher_id: {

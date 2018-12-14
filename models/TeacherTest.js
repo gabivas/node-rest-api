@@ -22,7 +22,7 @@ const TeacherTest = sequelize.define('teacher_test', {
     }
 })
 
-Teacher.belongsToMany(Test, { through: TeacherTest });
-Test.belongsToMany(Teacher, { through: TeacherTest });
+Teacher.belongsToMany(Test, {through: TeacherTest, foreignKey: 'teacher_id' });
+Test.belongsToMany(Teacher, {through: TeacherTest, foreignKey: 'test_id' });
 
 module.exports = TeacherTest

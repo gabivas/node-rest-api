@@ -23,7 +23,7 @@ const TeamStudent = sequelize.define('team_student', {
 })
 
 
-// Student.belongsToMany(Team, { through: TeamStudent });
-// Team.belongsToMany(Student, { through: TeamStudent });
+Student.belongsToMany(Team, {through: TeamStudent, foreignKey: 'student_id'});
+Team.belongsToMany(Student, {through: TeamStudent, foreignKey: 'team_id' });
 
 module.exports = TeamStudent

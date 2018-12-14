@@ -20,7 +20,7 @@ const Test = sequelize.define('test', {
 
 })
 
-Test.hasMany(Question,{as: "Questions"})
-Test.hasMany(Examination,{as: "TestExaminations"})
+Test.hasMany(Question,{foreignKey: 'question_id', sourceKey: 'test_id'})
+Test.hasMany(Examination,{foreignKey: 'examination_id', sourceKey: 'test_id'})
 
 module.exports =  Test

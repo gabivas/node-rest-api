@@ -2,9 +2,6 @@ const Sequelize = require('sequelize')
 const DataTypes = require('sequelize/lib/data-types')
 const sequelize =  require('../config/db-connection').sequelize
 
-//const Student = require('./Student')
-//const Examination = require('./Examination')
-
 
 const StudentAnswer = sequelize.define('student_answer', {
     student_answer_id: {
@@ -18,9 +15,6 @@ const StudentAnswer = sequelize.define('student_answer', {
     answer : {
         type: Sequelize.STRING
     }
-
 })
-//StudentAnswer.belongsTo(Student)
-//StudentAnswer.hasOne(Examination)
 
 module.exports =  StudentAnswer
