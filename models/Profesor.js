@@ -1,19 +1,20 @@
 const Sequelize = require('sequelize')
 const sequelize =  require('../config/db-connection').sequelize
 
-const Teacher = sequelize.define('teacher', {
-    teacher_id: {
+const Test = require('./Test')
+const Profesor = sequelize.define('profesor', {
+    id_profesor: {
         primaryKey: true,
         autoIncrement: true,
         type: Sequelize.INTEGER
     },
-    firstName: {
+    nume: {
         type: Sequelize.STRING
     },
-    lastName : {
+    prenume : {
         type: Sequelize.STRING
     },
-    password : {
+    parola : {
         type : Sequelize.STRING
     },
     email : {
@@ -23,5 +24,6 @@ const Teacher = sequelize.define('teacher', {
         }
     }
 });
+Profesor.hasMany(Test, {foreignKey: 'id_test', sourceKey: 'id_profesor',foreignKeyConstraint:true})
 
-module.exports =  Teacher
+module.exports =  Profesor

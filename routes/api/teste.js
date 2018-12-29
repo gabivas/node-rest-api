@@ -12,14 +12,15 @@ router.post('/', passport.authenticate('jwt', { session : false}), (req, res) =>
 
     //trebuie validare
 
-    let newTest = new Test({
-        subject: req.body.subject,
-        description: req.body.description,
-        text: req.body.text,
-        difficulty: req.body.difficulty
+    let testNou = new Test({
+        nume: req.body.nume,
+        descriere: req.body.descriere,
+        timp_disponibil: req.timp_disponibil,
+        este_public: req.body.este_public,
+        id_materie: req.body.id_materie
     })
 
-    newQuestion.save().catch(err => console.log(err))
+    testNou.save().catch(err => console.log(err))
     res.status(200).json("Done")
 })
 

@@ -3,18 +3,16 @@ const DataTypes = require('sequelize/lib/data-types')
 const sequelize =  require('../config/db-connection').sequelize
 
 
-const StudentAnswer = sequelize.define('student_answer', {
-    student_answer_id: {
+const RaspunsStudent = sequelize.define('raspuns_student', {
+    id_raspuns_student: {
         primaryKey: true,
         autoIncrement: true,
         type: Sequelize.INTEGER
     },
-    question_id: {
+    id_intrebare: {
         type: Sequelize.INTEGER
-    },
-    answer : {
-        type: Sequelize.STRING
     }
+
 })
 
-module.exports =  StudentAnswer
+module.exports =  RaspunsStudent

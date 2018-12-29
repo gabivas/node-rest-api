@@ -6,6 +6,6 @@ const keys = require('../../config/keys')
 const passport = require('passport')
 
 
-const Examination = require('../../models/Examination')
+const TesteSustinute = require('../../models/TestSustinut')
 
 module.exports = router

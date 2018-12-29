@@ -9,7 +9,7 @@ const passport = require('passport')
 //Load Input Validation
 const validateRegisterInput = require('../../validation/register')
 
-const Teacher = require('../../models/Teacher')
+const Profesor = require('../../models/Profesor')
 const Student = require('../../models/Student')
 
 // @route GET api/teachers/register
@@ -23,11 +23,11 @@ router.post('/register',(req, res) => {
         return res.status(400).json(errors)
     }
 
-    Teacher.findOne({ where:{email: req.body.email}}).then( newTeacher => {
-        if (newTeacher) {
-            errors.email = 'Email already exists'
-            return res.status(400).json(errors)
-        }
+    Profesor.findOne({ where:{email: req.body.email}}).then( profesorNou => {
+            if (profesorNou) {
+                errors.email = 'Email already exists'
+                return res.status(400).json(errors)
+            }
 
         // let student =  Student.findOne({ where:{email: req.body.email}})
         // if (student) {
@@ -35,23 +35,23 @@ router.post('/register',(req, res) => {
         //     return res.status(400).json(errors)
         // }
 
-        if (!newTeacher) {
+        if (!profesorNou) {
 
-                newTeacher = new Teacher({
-                    firstName: req.body.firstName,
-                    lastName: req.body.lastName,
-                    email: req.body.email,
-                    password: req.body.password
+                profesorNou = new Profesor({
+                    nume: req.body.nume,
+                    prenume: req.body.prenume,
+                    parola: req.body.parola,
+                    email: req.body.email
                 })
             }
 
             bcrypt.genSalt(10, (err, salt) => {
-                bcrypt.hash(newTeacher.password, salt, (err, hash) => {
+                bcrypt.hash(profesorNou.password, salt, (err, hash) => {
                     if (err)
                         throw err
-                    newTeacher.password = hash
-                    newTeacher.save()
-                        .then(teacher => res.json(teacher))
+                    profesorNou.password = hash
+                    profesorNou.save()
+                        .then(profesor => res.json(profesor))
                         .catch((err) => console.log(err))
                 })
             })
@@ -63,26 +63,26 @@ router.post('/register',(req, res) => {
 // access Public
 router.post('/login', (req, res) => {
     const email = req.body.email
-    const password = req.body.password
+    const parola = req.body.parola
 
     // find user by email
-    Teacher.findOne({ where:{email: email}})
-        .then(teacher => {
+    Profesor.findOne({ where:{email: email}})
+        .then(profesor => {
 
 
             // Check
-            if (!teacher) {
-                return res.status(404).json({email : 'Teacher not found'})
+            if (!profesor) {
+                return res.status(404).json({email : 'Profesor not found'})
             }
 
             //Check password
-            bcrypt.compare(password, teacher.password)
+            bcrypt.compare(parola, profesor.parola)
                 .then(isMatch => {
                     if (isMatch) {
                         // User matched
 
-                        const payload = { teacher_id: teacher.teacher_id,
-                            firstName: teacher.firstName, lastName: teacher.lastName, teacher : true} // Create jwt payload
+                        const payload = { id_profesor: profesor.teacher_id,
+                            nume: profesor.nume, prenume: profesor.prenume, teacher : true} // Create jwt payload
 
                         // Sign token
                         jwt.sign(payload, keys.secretOrKey, { expiresIn : 3600}, (err, token) => {
@@ -101,9 +101,9 @@ router.post('/login', (req, res) => {
 // access Private
 router.get('/current', passport.authenticate('jwt', { session : false}), (req, res) => {
     res.json({
-         teacher_id : req.user.teacher_id,
-         firstName : req.user.firstName,
-         lastName : req.user.lastName,
+         id_profesor : req.user.id_profesor,
+         nume : req.user.nume,
+         prenume : req.user.prenume,
          email : req.user.email
     })
 })

@@ -3,21 +3,21 @@ const Sequelize = require('sequelize')
 
 const sequelize =  require('../config/db-connection').sequelize
 
-const StudentAnswer = require('./StudentAnswer')
+const TestSustinut = require('./TestSustinut')
 
 const Student = sequelize.define('student', {
-    student_id: {
+    id_student: {
         primaryKey: true,
         autoIncrement: true,
         type: Sequelize.INTEGER
     },
-    firstName: {
+    nume: {
         type: Sequelize.STRING
     },
-    lastName : {
+    prenume : {
         type: Sequelize.STRING
     },
-    password: {
+    parola: {
         type: Sequelize.STRING
     },
     email : {
@@ -25,16 +25,11 @@ const Student = sequelize.define('student', {
         validate : {
             isEmail : true
         }
-    },
-    class : {
-        type: Sequelize.INTEGER,
-    },
-    course: {
-        type: Sequelize.STRING
-    },
+    }
+
 
 })
-Student.hasMany(StudentAnswer,{foreignKey: 'student_answer_id', sourceKey: 'student_id'})
+//Student.hasMany(TestSustinut,{foreignKey: 'id_test_sustinut', sourceKey: 'id_student',foreignKeyConstraint: true})
 
 module.exports =  Student
 

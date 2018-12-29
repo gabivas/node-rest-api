@@ -6,7 +6,7 @@ const keys = require('../../config/keys')
 const passport = require('passport')
 
 
-const Question = require('../../models/Question')
+const Intrebare = require('../../models/Intrebare')
 
 // router.post('/add', passport.authenticate('jwt', { session : false}), (req, res) => {
 //
@@ -28,14 +28,16 @@ router.post('/', passport.authenticate('jwt', { session : false}), (req, res) =>
 
     //trebuie validare
 
-    let newQuestion = new Question({
-        subject: req.body.subject,
-        description: req.body.description,
+    let intrebareNoua = new Intrebare({
         text: req.body.text,
-        difficulty: req.body.difficulty
+        tema: req.body.tema,
+        dificultate: req.body.dificultate,
+        timp_maxim_raspuns: req.body.timp_maxim_raspuns,
+        id_materie: req.body.id_materie,
+        id_profesor: req_body.id_profesor
     })
 
-    newQuestion.save().catch(err => console.log(err))
+    intrebareNoua.save().catch(err => console.log(err))
     res.status(200).json("Done")
 })
 
@@ -45,9 +47,9 @@ router.put('/:id', passport.authenticate('jwt', { session : false}),async (req, 
     //trebuie validare
 
     try{
-        let updatedQuestion = await Question.findById(req.params.id)
-        if (updatedQuestion){
-            await updatedQuestion.update(req.body)
+        let intrebareDeModificat = await Intrebare.findById(req.params.id)
+        if (intrebareDeModificat){
+            await intrebareDeModificat.update(req.body)
             res.status(202).json({message : 'accepted'})
         }
         else{
@@ -65,9 +67,9 @@ router.delete('/:id', passport.authenticate('jwt', { session : false}),async (re
     //trebuie validare
 
     try{
-        let todeleteQuestion = await Question.findById(req.params.id)
-        if (todeleteQuestion){
-            await todeleteQuestion.destroy()
+        let intrebareDeSters = await Question.findById(req.params.id)
+        if (intrebareDeSters){
+            await intrebareDeSters.destroy()
             res.status(202).json({message : 'accepted'})
         }
         else{
@@ -85,10 +87,10 @@ router.get('/:id'/*, passport.authenticate('jwt', { session : false})*/,async (r
     //trebuie validare
 
     try{
-        let question = await Question.findById(req.params.id)
-        if (question){
+        let intrebare = await Intrebare.findById(req.params.id)
+        if (intrebare){
 
-            res.status(202).json({message : question})
+            res.status(202).json({message : intrebare})
         }
         else{
             res.status(404).json({message : 'not found'})
@@ -104,10 +106,10 @@ router.get('/', passport.authenticate('jwt', { session : false}),async (req, res
     //trebuie validare
 
     try{
-        let questions = await Question.findAll()
-        if (questions){
+        let intrebari = await Intrebare.findAll()
+        if (intrebari){
 
-            res.status(202).json({message : questions})
+            res.status(202).json({message : intrebari})
         }
         else{
             res.status(404).json({message : 'not found'})

@@ -2,17 +2,15 @@ const Sequelize = require('sequelize')
 const DataTypes = require('sequelize/lib/data-types')
 const sequelize =  require('../config/db-connection').sequelize
 
-
-const Team = sequelize.define('team', {
-    team_id : {
-        type: Sequelize.INTEGER,
+const Materie = sequelize.define('materie', {
+    id_materie: {
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
+        type: Sequelize.INTEGER
     },
-    team_name: {
+    nume: {
         type: Sequelize.STRING
     }
 })
 
-module.exports =  Team
-
+module.exports = Materie
